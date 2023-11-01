@@ -7,7 +7,7 @@ const session = require('express-session');
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.use(session({ secret: 'your-secret-key', resave: true, saveUninitialized: true }));
-
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -49,7 +49,7 @@ app.post('/login', (req, res) => {
     } else if (username === 'management' && password === 'management') {
         req.session.user = { username, role: 'management' };
     }
-    res.redirect('/');
+    res.redirect('/brokenAccess');
 });
 
 app.get('/logout', (req, res) => {

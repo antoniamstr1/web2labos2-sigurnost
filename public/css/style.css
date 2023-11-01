@@ -1,0 +1,39 @@
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Style the navigation bar */
+.navbar {
+    background-color: #333; /* Background color */
+    display: flex; /* Display items horizontally */
+    justify-content: space-between; /* Distribute items evenly */
+    align-items: center; /* Center vertically */
+    padding: 10px 20px; /* Add padding for spacing */
+}
+
+/* Style the navigation list */
+.nav-list {
+    list-style: none; /* Remove list bullets */
+    display: flex; /* Display list items horizontally */
+}
+
+/* Style the navigation items */
+.nav-list li {
+    margin-right: 20px; /* Add spacing between items */
+}
+
+/* Style the navigation links */
+.nav-list li a {
+    text-decoration: none; /* Remove underline */
+    color: #fff; /* Text color */
+    font-weight: bold; /* Make text bold */
+    transition: color 0.2s; /* Add a smooth color transition on hover */
+}
+
+/* Change link color on hover */
+.nav-list li a:hover {
+    color: #f7bd4f;
+}
