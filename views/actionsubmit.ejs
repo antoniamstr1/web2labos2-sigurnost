@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Action Submit Page</title>
+</head>
+<body>
+<div class="navbar">
+    <a href="/">XSS napad</a>
+    <a href="/brokenAccess">Loša kontrola pristupa </a>
+    <a href="/login">login </a>
+    <a href="/logout">login </a>
+
+</div>
+<h1>Traženi upit je:</h1>
+
+<% if (sigurnost === "safeOn") { %>
+    <p><%= upit %></p>
+<% } else { %>
+    <p><%- upit %></p>
+<% } %>
+</body>
+</html>
