@@ -21,11 +21,11 @@ const checkUserRole = (role) => (req, res, next) => {
 };
 
 app.get('/user', checkUserRole('user'), (req, res) => {
-    res.render('user');
+    res.render('user',{user: req.session.user});
 });
 
 app.get('/admin', checkUserRole('admin'), (req, res) => {
-    res.render('admin');
+    res.render('admin',{user: req.session.user});
 });
 
 app.get('/management', (req, res) => {
@@ -33,7 +33,7 @@ app.get('/management', (req, res) => {
 });
 
 app.get('/brokenAccess',  (req, res) => {
-    res.render('brokenAccess');
+    res.render('brokenAccess',{user: req.session.user});
 });
 
 app.get('/login', function (req, res) {
@@ -57,7 +57,7 @@ app.get('/logout', (req, res) => {
         if (err) {
             console.error(err);
         }
-        res.redirect('/');
+        res.redirect('/brokenAccess');
     });
 });
 
@@ -72,7 +72,7 @@ app.get('/actionsubmit', function (req, res) {
 });
 
 app.post('/actionsubmit', function (req, res) {
-    const enteredText = req.body.upit;
+
     const upit = req.body.upit;
     const sigurnost = req.body.sigurnost;
     //console.log('upit (POST):', upit);

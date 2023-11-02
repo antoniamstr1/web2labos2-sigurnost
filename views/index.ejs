@@ -12,17 +12,20 @@
     </ul>
 </nav>
 <div>
-    <h1>XSS reflektirani napad</h1>
+    <h1 >XSS reflektirani napad</h1>
     <form method="POST" action="/actionsubmit" id="myForm">
-        <label for="sigurnost">Select a Mode:</label>
+        <label for="sigurnost">Odaberi:</label>
         <select name="sigurnost" id="sigurnost">
             <option value="safeOn">Uključi siguran način</option>
             <option value="safeOff">Isključi siguran način</option>
         </select>
         <br>
-        <input type="text" name="upit" id="upit" placeholder="pretraži bazu . . . .  ">
+        <p class="naziv" >Upiši pojam:</p>
+        <textarea type="textarea" name="upit" id="upit" placeholder="pretraži bazu . . . .  ">
+            </textarea>
         <button type="submit">Pretraži</button>
     </form>
+
 </div>
 
 <script>
@@ -44,6 +47,7 @@
 
         }
     });
+
 </script>
 </body>
 </html>

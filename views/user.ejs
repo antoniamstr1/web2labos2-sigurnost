@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="css/style.css">
     <title>user</title>
 </head>
 <body>
+<nav class="navbar">
+    <ul class="nav-list">
+        <li><a href="/">XSS napad</a></li>
+        <li><a href="/brokenAccess">Loša kontrola pristupa </a></li>
+        <% if (user) { %>
+            <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+            <li><a href="/login">Login</a></li>
+        <% } %>
+    </ul>
+</nav>
 <h1>user</h1>
 
 </body>

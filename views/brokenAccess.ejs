@@ -9,19 +9,22 @@
     <ul class="nav-list">
         <li><a href="/">XSS napad</a></li>
         <li><a href="/brokenAccess">Loša kontrola pristupa </a></li>
-        <li><a href="/login">login </a></li>
-        <li><a href="/logout">logout </a></li>
+        <% if (user) { %>
+            <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+            <li><a href="/login">Login</a></li>
+        <% } %>
     </ul>
 </nav>
 
-<div>
+<div class="poveznice-container">
     <br>
-    <a href="/user">user info</a>
+    <a class="poveznice" href="/user">user info</a>
     <br>
 
-    <a href="/admin">admin info</a>
+    <a class="poveznice" href="/admin">admin info</a>
     <br>
-    <p> management info</p>
+    <p class="poveznice" > management info</p>
 </div>
 
 </body>

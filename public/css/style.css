@@ -7,11 +7,11 @@
 
 /* Style the navigation bar */
 .navbar {
-    background-color: #333; /* Background color */
+    background-color: lightgray; /* Background color */
     display: flex; /* Display items horizontally */
     justify-content: space-between; /* Distribute items evenly */
     align-items: center; /* Center vertically */
-    padding: 10px 20px; /* Add padding for spacing */
+    padding: 30px 20px; /* Add padding for spacing */
 }
 
 /* Style the navigation list */
@@ -22,18 +22,79 @@
 
 /* Style the navigation items */
 .nav-list li {
+    font-size: 18px;
     margin-right: 20px; /* Add spacing between items */
+    margin-left: 20px
 }
 
 /* Style the navigation links */
 .nav-list li a {
     text-decoration: none; /* Remove underline */
-    color: #fff; /* Text color */
+    color: black; /* Text color */
     font-weight: bold; /* Make text bold */
     transition: color 0.2s; /* Add a smooth color transition on hover */
 }
 
 /* Change link color on hover */
 .nav-list li a:hover {
-    color: #f7bd4f;
+    color: dimgray;
+}
+h1{
+    margin:40px;
+}
+
+form{
+    width: 40%;
+    margin-left: 40px;
+    padding: 30px;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+
+}
+.naziv{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+button{
+    margin-top: 10px;
+    margin-right: 40px;
+    padding:5px;
+    background-color: darkgray;
+    border-radius: 5px;
+}
+textarea{
+    width: 100%;
+}
+.rezultat{
+    padding:10px;
+
+    background-color: lightgray;
+    border: 2px solid darkgray;
+    border-radius: 5px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.poveznice{
+    font-size: 18px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top:50px;
+    font-weight: bold; /* Make text bold */
+    color: black;
+    text-decoration: none;
+    padding:35px;
+    background-color: lightgray;
+    border: 2px solid darkgray;
+    border-radius: 5px;
+
+}
+
+.poveznice-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.form-width{
+    width:350px;
 }
