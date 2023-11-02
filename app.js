@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const fs = require("fs");
 const fs1 = require("fs");
+const fs2 = require("fs");
 const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
@@ -95,7 +96,9 @@ app.get('/promjenaLozinke', function (req, res) {
     const userData = JSON.parse(data);
     const userIndex = userData.findIndex(user => user.username === 'user');
     userData[userIndex].password = newPassword;
+    fs1.writeFile(filePath, JSON.stringify(userData, null, 2), 'utf8', err => {
 
+    });
 
     res.render('user',{user: req.session.user});
 });
