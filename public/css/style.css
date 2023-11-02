@@ -39,7 +39,7 @@
 .nav-list li a:hover {
     color: dimgray;
 }
-h1{
+h1,h3{
     margin:40px;
 }
 
@@ -90,6 +90,9 @@ textarea{
 
 }
 
+.promjena{
+    width:300px;
+}
 .poveznice-container{
     display: flex;
     flex-direction: row;
@@ -97,4 +100,8 @@ textarea{
 }
 .form-width{
     width:350px;
+}
+
+.u-centru{
+    margin-top:100px;
 }

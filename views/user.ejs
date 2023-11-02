@@ -16,7 +16,34 @@
         <% } %>
     </ul>
 </nav>
-<h1>user</h1>
+<h1>User info</h1>
 
+<div class="poveznice-container">
+<div>
+<h3> Neiguran način promjene lozinke</h3>
+<form class="promjena" method="get" action="/promjenaLozinke" id="promjenaLozinke">
+
+    <label class ="naziv" for="loz">Nova lozinka:</label><br>
+    <input type="text" name="loz" id="loz" >
+
+    <button type="submit">promijeni</button>
+</form>
+</div>
+<div>
+<h3> Siguran način promjene lozinke</h3>
+<form  class="promjena" method="post" action="/promjenaLozinke" id="promjenaLozinke">
+
+    <label class ="naziv" for="loz2">Nova lozinka:</label><br>
+    <input type="text" name="loz2" id="loz2" >
+
+    <button type="submit">promijeni</button>
+
+</form>
+</div>
+</div>
+
+
+
+<p></p>
 </body>
 </html>
