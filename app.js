@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
-
+const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -81,6 +81,6 @@ app.post('/actionsubmit', function (req, res) {
     res.render('actionsubmit', { upit, sigurnost });
 });
 
-app.listen(3000, function () {
+app.listen(PORT, function () {
     console.log('Example app listening on port 3000!');
 });

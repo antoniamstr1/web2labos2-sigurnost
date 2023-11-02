@@ -70,6 +70,8 @@
     "vary": "^1.1.2"
   },
   "scripts": {
+    "start": "node server.js",
+    "build": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
