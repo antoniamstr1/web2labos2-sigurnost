@@ -8,17 +8,16 @@
 <nav class="navbar">
     <ul class="nav-list">
         <li><a href="/">XSS napad</a></li>
-        <li><a href="/brokenAccess">Loša kontrola pristupa </a></li>
+        <li><a href="/brokenAccess">Loša kontrola pristupa</a></li>
     </ul>
 </nav>
 <div>
     <h1>XSS reflektirani napad</h1>
-    <form method="POST" action="/actionsubmit">
+    <form method="POST" action="/actionsubmit" id="myForm">
         <label for="sigurnost">Select a Mode:</label>
         <select name="sigurnost" id="sigurnost">
-            <option value="safeOn">Uključi siguran način </option>
+            <option value="safeOn">Uključi siguran način</option>
             <option value="safeOff">Isključi siguran način</option>
-
         </select>
         <br>
         <input type="text" name="upit" id="upit" placeholder="pretraži bazu . . . .  ">
@@ -26,5 +25,25 @@
     </form>
 </div>
 
+<script>
+    document.getElementById("myForm").addEventListener("submit", function (event) {
+        var sigurnostValue = document.getElementById("sigurnost").value;
+
+        if (sigurnostValue === "safeOn") {
+            var upitInput = document.getElementById("upit");
+            var forbiddenCharacters = /[.,<>%=]/; // Regular expression to match forbidden characters
+
+            if (forbiddenCharacters.test(upitInput.value)) {
+                alert("Upit sadrži zabranjene znakove.");
+                event.preventDefault();
+            }
+            if (typeof upitInput.value !== "string" ) {
+                alert("Upit sadrži zabranjene znakove.");
+                event.preventDefault();
+            }
+
+        }
+    });
+</script>
 </body>
 </html>
