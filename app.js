@@ -3,12 +3,12 @@ var app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-
+var csrf = require('csurf');
 const fs2 = require("fs");
 const fs = require("fs");
 
 const PORT = process.env.PORT || 3000;
-
+var csrfProtect = csrf({ cookie: true })
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.use(session({
@@ -83,7 +83,7 @@ app.get('/logout', (req, res) => {
 });
 
 
-app.get('/', function (req, res) {
+app.get('/',csrfProtect, function (req, res) {
     const fs = require('fs');
     let mallink = "";
     if (PORT === 3000)  mallink = fs.readFileSync('link.txt', 'utf8');
@@ -91,7 +91,7 @@ app.get('/', function (req, res) {
     res.render('index', {mallink, user: req.session.user });
 });
 
-app.get('/actionsubmit',function (req, res) {
+app.get('/actionsubmit',csrfProtect, function (req, res) {
     const upit = req.query.upit;
     const sigurnost = req.query.sigurnost;
     const fs = require('fs');
@@ -100,7 +100,7 @@ app.get('/actionsubmit',function (req, res) {
     res.render('actionsubmit', {mallink, upit, sigurnost });
 });
 
-app.post('/actionsubmit', function (req, res) {
+app.post('/actionsubmit',csrfProtect, function (req, res) {
 
     const upit = req.body.upit;
     const sigurnost = req.body.sigurnost;
