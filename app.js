@@ -1,17 +1,23 @@
 var express = require('express');
 var app = express();
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const fs = require("fs");
-const fs3 = require("fs");
-const fs1 = require("fs");
+
 const fs2 = require("fs");
+const fs = require("fs");
 
 const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-app.use(session({ secret: 'your-secret-key', resave: true, saveUninitialized: true }));
+app.use(session({
+    secret: 'your-secret-key',
+    resave: true,
+    saveUninitialized: true,
+
+}));
+app.use(cookieParser());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -79,9 +85,9 @@ app.get('/logout', (req, res) => {
 
 app.get('/', function (req, res) {
     const fs = require('fs');
-    console.log('document:', req.document);
-
-    const mallink = fs.readFileSync('link.txt', 'utf8');
+    let mallink = "";
+    if (PORT === 3000)  mallink = fs.readFileSync('link.txt', 'utf8');
+    else  mallink = fs.readFileSync('link_deployed.txt', 'utf8');
     res.render('index', {mallink, user: req.session.user });
 });
 
@@ -90,7 +96,7 @@ app.get('/actionsubmit',function (req, res) {
     const sigurnost = req.query.sigurnost;
     const fs = require('fs');
     const mallink = fs.readFileSync('link.txt', 'utf8');
-    console.log('document:', req.document);
+
     res.render('actionsubmit', {mallink, upit, sigurnost });
 });
 
@@ -106,14 +112,11 @@ app.post('/actionsubmit', function (req, res) {
 app.get('/promjenaLozinke', function (req, res) {
     const filePath = 'data.json';
     const newPassword = req.query.loz;
-    console.log('newPassword1:', newPassword);
     const fs1= require('fs');
 
     const data2 = fs2.readFileSync('data.json', 'utf8');
     const userData = JSON.parse(data2);
-    console.log('userData1:',userData);
     const userIndex = userData.findIndex(user => user.username === 'user');
-    console.log('userIndex1:',userIndex);
     userData[userIndex].password = newPassword;
     fs1.writeFile(filePath, JSON.stringify(userData, null, 2), 'utf8', err => {
 
@@ -124,15 +127,12 @@ app.get('/promjenaLozinke', function (req, res) {
 app.post('/promjenaLozinke1', function (req, res) {
     const filePath = 'data.json';
     const newPassword = req.body.loz2; // Use request body parameter 'loz2'
-    console.log('newPassword2:', newPassword);
     const fs2 = require('fs');
 
     try {
         const data2 = fs2.readFileSync('data.json', 'utf8');
         const userData = JSON.parse(data2);
-        console.log('userData2:',userData);
         const userIndex = userData.findIndex(user => user.username === 'user');
-        console.log('userIndex2:',userIndex);
         userData[userIndex].password = newPassword;
         fs2.writeFile(filePath, JSON.stringify(userData, null, 2), 'utf8', err => {
             if (err) {
