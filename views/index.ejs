@@ -8,11 +8,18 @@
 <nav class="navbar">
     <ul class="nav-list">
         <li><a href="/">XSS napad</a></li>
-        <li><a href="/brokenAccess">Loša kontrola pristupa</a></li>
+        <li><a href="/brokenAccess">Loša kontrola pristupa </a></li>
+        <% if (user) { %>
+            <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+            <li><a href="/login">Login</a></li>
+        <% } %>
     </ul>
 </nav>
-<div>
-    <h1 >XSS reflektirani napad</h1>
+<h1 >XSS reflektirani napad</h1>
+<div class="container-vertical">
+<div class="margins">
+
     <form method="POST" action="/actionsubmit" id="myForm">
         <label for="sigurnost">Odaberi:</label>
         <select name="sigurnost" id="sigurnost">
@@ -21,14 +28,36 @@
         </select>
         <br>
         <p class="naziv" >Upiši pojam:</p>
-        <textarea type="textarea" name="upit" id="upit" placeholder="pretraži bazu . . . .  ">
-            </textarea>
+        <textarea type="textarea" name="upit" id="upit" >
+            <a onclick="alert('xss' + document.cookie);location.href='https://www.fer.unizg.hr/intranet' "> link </a></textarea>
         <button type="submit">Pretraži</button>
     </form>
 
 </div>
+    <!--
+<div class="like-form ">
+    <p>Za ovaj dio potreban je login.</p>
+    <br>
+    <label for="sigurnost1">Odaberi:</label>
+    <select name="sigurnost1" id="sigurnost1">
+        <option value="safeOn">Uključi siguran način</option>
+        <option value="safeOff">Isključi siguran način</option>
+    </select>
+    <br>
+    <label class ="naziv" for="nickname">Nadimak:</label><br>
+    <input class="like-textarea" type="text" name="nickname" id="nickname" >
+    <button type="button" id="generirajLink">Generiraj link</button>
+
+    <a id="generirani_link" href=""> </a>
+
+
+
+</div>
+-->
+</div>
 
 <script>
+
     document.getElementById("myForm").addEventListener("submit", function (event) {
         var sigurnostValue = document.getElementById("sigurnost").value;
 
@@ -47,7 +76,22 @@
 
         }
     });
+    var user = '<%- JSON.stringify(user) %>';
+    const sigurnostSelect = document.getElementById("sigurnost1");
+    const nickname = document.getElementById("nickname");
+    const generirajLinkButton = document.getElementById("generirajLink");
+    const resultDiv = document.getElementById("generirani_link");
+    generirajLinkButton.addEventListener("click", function () {
+        const sigurnostValue = sigurnostSelect.value;
+        const nickValue = nickname.value;
 
+        const link = `http://localhost:3000/user-info/${sigurnostValue}/<\script%20src=”http://localhost:3000/user”`;
+
+        resultDiv.href = link;
+        resultDiv.textContent = `${link}`;
+
+
+    })
 </script>
 </body>
 </html>

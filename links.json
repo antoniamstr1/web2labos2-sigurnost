@@ -1,0 +1,7 @@
+[{
+  "link1": "<script>",
+  "link2": "alert(user.cookie);",
+  "link3": "</",
+  "link4": "script>"
+
+}]

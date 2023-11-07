@@ -3,8 +3,8 @@ var app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const fs = require("fs");
-const fs1 = require("fs");
-const fs2 = require("fs");
+const fs3 = require("fs");
+
 const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
@@ -26,7 +26,13 @@ const checkUserRole = (role) => (req, res, next) => {
 app.get('/user', checkUserRole('user'), (req, res) => {
     res.render('user',{user: req.session.user});
 });
+//u linku trebam imati username?
+app.get('/user-info/:sigurnost/:nickname', checkUserRole('user'), (req, res) => {
 
+
+    let sigurnost = req.query.sigurnost;
+    res.render('user-info',{sigurnost, user: req.session.user});
+});
 app.get('/admin', checkUserRole('admin'), (req, res) => {
     res.render('admin',{user: req.session.user});
 });
@@ -70,8 +76,10 @@ app.get('/logout', (req, res) => {
 
 
 app.get('/', function (req, res) {
-    res.render('index', { displayText: '' });
+
+    res.render('index', {user: req.session.user });
 });
+
 app.get('/actionsubmit', function (req, res) {
     const upit = req.query.upit;
     const sigurnost = req.query.sigurnost;
