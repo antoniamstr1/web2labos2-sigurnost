@@ -76,14 +76,20 @@ app.get('/logout', (req, res) => {
 
 
 app.get('/', function (req, res) {
+    const fs = require('fs');
+    console.log('document:', req.document);
 
-    res.render('index', {user: req.session.user });
+    const mallink = fs.readFileSync('link.txt', 'utf8');
+    res.render('index', {mallink, user: req.session.user });
 });
 
-app.get('/actionsubmit', function (req, res) {
+app.get('/actionsubmit',function (req, res) {
     const upit = req.query.upit;
     const sigurnost = req.query.sigurnost;
-    res.render('actionsubmit', { upit, sigurnost });
+    const fs = require('fs');
+    const mallink = fs.readFileSync('link.txt', 'utf8');
+    console.log('document:', req.document);
+    res.render('actionsubmit', {mallink, upit, sigurnost });
 });
 
 app.post('/actionsubmit', function (req, res) {

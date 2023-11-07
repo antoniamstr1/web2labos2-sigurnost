@@ -9,18 +9,13 @@
     <ul class="nav-list">
         <li><a href="/">XSS napad</a></li>
         <li><a href="/brokenAccess">Loša kontrola pristupa </a></li>
-        <% if (user) { %>
-            <li><a href="/logout">Logout</a></li>
-        <% } else { %>
-            <li><a href="/login">Login</a></li>
-        <% } %>
     </ul>
 </nav>
 <h1 >XSS reflektirani napad</h1>
 <div class="container-vertical">
 <div class="margins">
 
-    <form method="POST" action="/actionsubmit" id="myForm">
+    <form method="GET" action="/actionsubmit" id="myForm">
         <label for="sigurnost">Odaberi:</label>
         <select name="sigurnost" id="sigurnost">
             <option value="safeOn">Uključi siguran način</option>
@@ -29,11 +24,15 @@
         <br>
         <p class="naziv" >Upiši pojam:</p>
         <textarea type="textarea" name="upit" id="upit" >
-            <a onclick="alert('xss' + document.cookie);location.href='https://www.fer.unizg.hr/intranet' "> link </a></textarea>
+            <script>alert("xss attack!");</script></textarea>
         <button type="submit">Pretraži</button>
     </form>
-
+<h1>Generirani zlonamjerni link</h1>
 </div>
+    <div class="like-form">
+        <a href="<%= mallink %>"> link</a>
+    </div>
+
     <!--
 <div class="like-form ">
     <p>Za ovaj dio potreban je login.</p>
