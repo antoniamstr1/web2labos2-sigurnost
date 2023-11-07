@@ -35,12 +35,7 @@ app.get('/user', checkUserRole('user'), (req, res) => {
     res.render('user',{user: req.session.user});
 });
 //u linku trebam imati username?
-app.get('/user-info/:sigurnost/:nickname', checkUserRole('user'), (req, res) => {
 
-
-    let sigurnost = req.query.sigurnost;
-    res.render('user-info',{sigurnost, user: req.session.user});
-});
 app.get('/admin', checkUserRole('admin'), (req, res) => {
     res.render('admin',{user: req.session.user});
 });
@@ -85,19 +80,45 @@ app.get('/logout', (req, res) => {
 
 app.get('/',csrfProtect, function (req, res) {
     const fs = require('fs');
-    let mallink = "";
-    if (PORT === 3000)  mallink = fs.readFileSync('link.txt', 'utf8');
-    else  mallink = fs.readFileSync('link_deployed.txt', 'utf8');
-    res.render('index', {mallink, user: req.session.user });
+    let safeonlink = "";
+    let safeofflink = "";
+    if (PORT === 3000)
+    {
+        const mallink1 = fs.readFileSync('link.txt', 'utf8');
+        const links1 = mallink1.split('\n').filter(url => url.trim() !== '');
+         safeofflink = links1[0];
+         safeonlink = links1[1];
+    }
+
+    else  {
+        const mallink2 = fs.readFileSync('link_deployed.txt', 'utf8');
+        const links2 = mallink2.split('\n').filter(url => url.trim() !== '');
+         safeofflink = links2[0];
+         safeonlink = links2[1];
+    }
+    res.render('index', {safeofflink, safeonlink, user: req.session.user });
 });
 
 app.get('/actionsubmit',csrfProtect, function (req, res) {
-    const upit = req.query.upit;
+    var upit = req.query.upit;
     const sigurnost = req.query.sigurnost;
-    const fs = require('fs');
-    const mallink = fs.readFileSync('link.txt', 'utf8');
 
-    res.render('actionsubmit', {mallink, upit, sigurnost });
+    var check = 1;
+    //ak je safeon i ak ima klasničnih blacklist znakova ispisujem: detektiran pokušaj xss napada preko zlonamjernog linka
+    if (sigurnost === "safeOn") {
+        var forbiddenCharacters = /[.,<>%=]/; // Regular expression to match forbidden characters
+
+
+        if (forbiddenCharacters.test(upit)) {
+           check = 0;
+
+        }
+
+        upit = "http://localhost:3000/actionsubmit?sigurnost=safeOn&upit=";
+
+
+    }
+    res.render('actionsubmit', {check, upit, sigurnost });
 });
 
 app.post('/actionsubmit',csrfProtect, function (req, res) {

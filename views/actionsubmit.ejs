@@ -11,12 +11,18 @@
         <li><a href="/brokenAccess">Loša kontrola pristupa </a></li>
     </ul>
 </nav>
-<h1>Traženi upit je:</h1>
+<% if (check === 1) { %>
+    <h1>Traženi upit je:</h1>
 
-<% if (sigurnost === "safeOn") { %>
-    <p class="rezultat"><%= upit %></p>
-<% } else { %>
-    <p class="rezultat"><%- upit %></p>
+    <% if (sigurnost === "safeOn") { %>
+        <p class="rezultat"><%= upit %></p>
+    <% } else { %>
+        <p class="rezultat"><%- upit %></p>
+    <% } %>
 <% } %>
+<% if (check === 0)  { %>
+    <h3>Detektiran je xss napad preko zlonamjernog linka</h3>
+<% } %>
+
 </body>
 </html>

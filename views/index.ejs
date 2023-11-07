@@ -30,7 +30,10 @@
 <h1>Generirani zlonamjerni link</h1>
 </div>
     <div class="like-form">
-        <a href="<%= mallink %>"> link</a>
+        <a href="<%= safeofflink %>"> zlonamjerni lik u nezaštićenom okruženju</a>
+    </div>
+    <div class="like-form">
+        <a href="<%= safeonlink %>"> zlonamjerni lik u zaštićenom okruženju</a>
     </div>
 
     <!--
@@ -75,22 +78,7 @@
 
         }
     });
-    var user = '<%- JSON.stringify(user) %>';
-    const sigurnostSelect = document.getElementById("sigurnost1");
-    const nickname = document.getElementById("nickname");
-    const generirajLinkButton = document.getElementById("generirajLink");
-    const resultDiv = document.getElementById("generirani_link");
-    generirajLinkButton.addEventListener("click", function () {
-        const sigurnostValue = sigurnostSelect.value;
-        const nickValue = nickname.value;
 
-        const link = `http://localhost:3000/user-info/${sigurnostValue}/<\script%20src=”http://localhost:3000/user”`;
-
-        resultDiv.href = link;
-        resultDiv.textContent = `${link}`;
-
-
-    })
 </script>
 </body>
 </html>
