@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const fs = require("fs");
 const fs3 = require("fs");
+const fs1 = require("fs");
+const fs2 = require("fs");
 
 const PORT = process.env.PORT || 3000;
 
@@ -104,11 +106,14 @@ app.post('/actionsubmit', function (req, res) {
 app.get('/promjenaLozinke', function (req, res) {
     const filePath = 'data.json';
     const newPassword = req.query.loz;
+    console.log('newPassword1:', newPassword);
     const fs1= require('fs');
 
-    const data = fs1.readFileSync('data.json', 'utf8');
-    const userData = JSON.parse(data);
+    const data2 = fs2.readFileSync('data.json', 'utf8');
+    const userData = JSON.parse(data2);
+    console.log('userData1:',userData);
     const userIndex = userData.findIndex(user => user.username === 'user');
+    console.log('userIndex1:',userIndex);
     userData[userIndex].password = newPassword;
     fs1.writeFile(filePath, JSON.stringify(userData, null, 2), 'utf8', err => {
 
@@ -116,21 +121,31 @@ app.get('/promjenaLozinke', function (req, res) {
 
     res.render('user',{user: req.session.user});
 });
-app.post('/promjenaLozinke', function (req, res) {
+app.post('/promjenaLozinke1', function (req, res) {
     const filePath = 'data.json';
-    const newPassword = req.body.loz2;
-    const fs2= require('fs');
+    const newPassword = req.body.loz2; // Use request body parameter 'loz2'
+    console.log('newPassword2:', newPassword);
+    const fs2 = require('fs');
 
-    const data = fs2.readFileSync('data.json', 'utf8');
-    const userData = JSON.parse(data);
-    const userIndex = userData.findIndex(user => user.username === 'user');
-    userData[userIndex].password = newPassword;
-    fs2.writeFile(filePath, JSON.stringify(userData, null, 2), 'utf8', err => {
-
-    });
-
-    res.render('user',{user: req.session.user});
+    try {
+        const data2 = fs2.readFileSync('data.json', 'utf8');
+        const userData = JSON.parse(data2);
+        console.log('userData2:',userData);
+        const userIndex = userData.findIndex(user => user.username === 'user');
+        console.log('userIndex2:',userIndex);
+        userData[userIndex].password = newPassword;
+        fs2.writeFile(filePath, JSON.stringify(userData, null, 2), 'utf8', err => {
+            if (err) {
+                console.error(err);
+            }
+            res.render('user', { user: req.session.user });
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 });
+
 
 app.listen(PORT, function () {
     console.log('Example app listening on port 3000!');
