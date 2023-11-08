@@ -111,14 +111,15 @@ app.get('/actionsubmit',csrfProtect, function (req, res) {
 
         if (forbiddenCharacters.test(upit)) {
            check = 0;
+            if (PORT === 3000) {
+                upit = "http://localhost:3000/actionsubmit?sigurnost=safeOn&upit=";
+            }
+            else {
+                upit = "https://sigurnost-mmi9.onrender.com/actionsubmit?sigurnost=safeOn&upit=";
+            }
 
         }
-        if (PORT === 3000) {
-            upit = "http://localhost:3000/actionsubmit?sigurnost=safeOn&upit=";
-        }
-        else {
-            upit = "https://sigurnost-mmi9.onrender.com/actionsubmit?sigurnost=safeOn&upit=";
-        }
+
 
 
     }
